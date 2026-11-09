@@ -3,6 +3,9 @@
 跑在 Cloudflare 免费档上的个人基础设施：6 个站点与服务共享一套边缘架构与发布流程，同一套纪律贯穿部署全链路。本仓库收录其中两个可独立复用的通用组件；其余服务（浏览器客户端的验签后端见 [huandou-attest](https://github.com/duskly-jpg/huandou-attest)，客户端见 [huandou](https://github.com/duskly-jpg/huandou)）独立成仓。
 
 [![tests](https://github.com/duskly-jpg/cloud-infra/actions/workflows/tests.yml/badge.svg)](https://github.com/duskly-jpg/cloud-infra/actions/workflows/tests.yml)
+[![release](https://img.shields.io/github/v/release/duskly-jpg/cloud-infra)](https://github.com/duskly-jpg/cloud-infra/releases)
+[![license](https://img.shields.io/github/license/duskly-jpg/cloud-infra)](LICENSE)
+![dependencies](https://img.shields.io/badge/dependencies-0%20npm-blue)
 
 ## 服务拓扑
 
