@@ -1,0 +1,17 @@
+name = "dobby-hooks"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+routes = [
+  { pattern = "hooks.example.com/*", zone_name = "example.com" }
+]
+
+[observability]
+enabled = true
+
+[[kv_namespaces]]
+binding = "HOOKS_KV"
+id = "88b349dd5a1a4f70abd0f537f30c571e"
+
+[vars]
+PUSHPLUS_TEMPLATE = "html"

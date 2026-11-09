@@ -1,0 +1,30 @@
+name: tests
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  syntax-and-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Worker 语法检查
+        run: |
+          node --check services/hooks-bridge/index.js
+          node --check services/cron-scheduler/worker.js
+      - name: 配置文件 JSONC 校验
+        run: |
+          python3 - <<'EOF'
+          import json, re
+          for f in ("services/cron-scheduler/wrangler.jsonc",):
+              s = re.sub(r'//[^\n]*', '', open(f).read())
+              json.loads(s)
+          print("jsonc ok")
+          EOF
+      - name: 代码零硬编码域名断言
+        run: |
+          ! grep -rE "flaros|workers\.dev" services/*/index.js services/*/worker.js
+          echo "domain-clean ok"

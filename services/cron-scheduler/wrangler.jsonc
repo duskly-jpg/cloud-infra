@@ -1,0 +1,13 @@
+{
+  "$schema": "../tgbot/node_modules/wrangler/config-schema.json",
+  "name": "dobby-cron",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-22",
+  "ai": { "binding": "AI" },
+  "triggers": {
+    "crons": ["0 0 * * *"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
