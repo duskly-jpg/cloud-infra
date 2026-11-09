@@ -5,7 +5,7 @@
 [![tests](https://github.com/duskly-jpg/cloud-infra/actions/workflows/tests.yml/badge.svg)](https://github.com/duskly-jpg/cloud-infra/actions/workflows/tests.yml)
 [![release](https://img.shields.io/github/v/release/duskly-jpg/cloud-infra)](https://github.com/duskly-jpg/cloud-infra/releases)
 [![license](https://img.shields.io/github/license/duskly-jpg/cloud-infra)](LICENSE)
-![dependencies](https://img.shields.io/badge/dependencies-0%20npm-blue)
+[![dependencies](https://img.shields.io/badge/dependencies-0%20npm-blue)](#services)
 
 ## 服务拓扑
 
