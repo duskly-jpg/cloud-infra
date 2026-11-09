@@ -6,6 +6,7 @@
 [![release](https://img.shields.io/github/v/release/duskly-jpg/cloud-infra)](https://github.com/duskly-jpg/cloud-infra/releases)
 [![license](https://img.shields.io/github/license/duskly-jpg/cloud-infra)](LICENSE)
 [![dependencies](https://img.shields.io/badge/dependencies-0%20npm-blue)](#services)
+[![codeql](https://img.shields.io/github/actions/workflow/status/duskly-jpg/cloud-infra/codeql.yml?branch=main&label=codeql)](https://github.com/duskly-jpg/cloud-infra/actions/workflows/codeql.yml)
 
 ## 服务拓扑
 
