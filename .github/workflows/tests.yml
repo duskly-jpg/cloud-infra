@@ -18,11 +18,44 @@ jobs:
       - name: 配置文件 JSONC 校验
         run: |
           python3 - <<'EOF'
-          import json, re
+          import json
+          def strip_jsonc_comments(s):
+              # 字符串感知：URL 里的 // 不是注释
+              out, i, n, in_str, esc = [], 0, len(s), False, False
+              while i < n:
+                  c = s[i]
+                  if in_str:
+                      out.append(c)
+                      if esc: esc = False
+                      elif c == '\\': esc = True
+                      elif c == '"': in_str = False
+                      i += 1
+                  else:
+                      if c == '"':
+                          in_str = True; out.append(c); i += 1
+                      elif c == '/' and i + 1 < n and s[i+1] == '/':
+                          while i < n and s[i] != '\n': i += 1
+                      else:
+                          out.append(c); i += 1
+              return ''.join(out)
           for f in ("services/cron-scheduler/wrangler.jsonc",):
-              s = re.sub(r'//[^\n]*', '', open(f).read())
-              json.loads(s)
+              json.loads(strip_jsonc_comments(open(f).read()))
           print("jsonc ok")
+          EOF
+      - name: 配置文件 TOML 校验
+        run: |
+          python3 - <<'EOF'
+          import tomllib
+          with open("services/hooks-bridge/wrangler.toml", "rb") as f:
+              cfg = tomllib.load(f)
+          # main 入口必须真实存在（防路径漂移导致部署即挂）
+          import os
+          assert os.path.exists(os.path.join("services/hooks-bridge", cfg["main"])), \
+              f"wrangler.toml main 入口不存在: {cfg['main']}"
+          # 资源 ID 纪律：入库配置不得含真实 KV namespace id（应为占位符）
+          for kv in cfg.get("kv_namespaces", []):
+              assert kv["id"].startswith("<"), f"KV namespace id 疑似真实资源 ID: {kv['binding']}"
+          print("toml ok")
           EOF
       - name: 代码零硬编码域名断言
         run: |

@@ -1,5 +1,5 @@
 name = "dobby-hooks"
-main = "src/index.js"
+main = "index.js"
 compatibility_date = "2024-11-01"
 
 routes = [
@@ -11,7 +11,7 @@ enabled = true
 
 [[kv_namespaces]]
 binding = "HOOKS_KV"
-id = "88b349dd5a1a4f70abd0f537f30c571e"
+id = "<your-kv-namespace-id>"
 
 [vars]
 PUSHPLUS_TEMPLATE = "html"
