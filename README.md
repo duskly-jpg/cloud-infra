@@ -45,10 +45,11 @@
 ```bash
 node --check services/hooks-bridge/index.js
 node --check services/cron-scheduler/worker.js
-python3 -c "import json,re; s=re.sub(r'//.*','',open('services/cron-scheduler/wrangler.jsonc').read()); json.loads(s); print('jsonc ok')"
 ```
 
-CI 对全部服务跑以上检查（`.github/workflows/tests.yml`）。
+- **TOML 校验**（`main` 入口存在性 + KV 资源 ID 必须为占位符）与 **JSONC 校验**（字符串感知的注释剥离——URL 里的 `//` 不是注释）完整逻辑在 `.github/workflows/tests.yml`。注意：naive 的 `re.sub(r'//.*','')` 会把 `$schema` 的 URL 一起剥掉，这是踩过才写进 CI 的坑。
+
+CI 对全部服务跑以上检查。
 
 ## 部署（每个服务目录内）
 
@@ -58,6 +59,14 @@ npx wrangler secret put PUSHPLUS_TOKEN     # 微信推送 token
 npx wrangler secret put WEBHOOK_SECRET     # hooks-bridge 的签名密钥（whsec_...）
 npx wrangler secret put MANUAL_TOKEN       # cron-scheduler 手动触发端点的鉴权 token
 ```
+
+## 相关仓库
+
+- [`huandou-attest`](https://github.com/duskly-jpg/huandou-attest) — 设备完整性验证（Key Attestation 验签后端）
+- [`huandou`](https://github.com/duskly-jpg/huandou) — 浏览器客户端
+- [`offense-lab`](https://github.com/duskly-jpg/offense-lab) — 授权攻防靶场与方法论
+- [`data-agent`](https://github.com/duskly-jpg/data-agent) — 自然语言查数 agent（NL→SQL + 四道闸）
+- [`dobby-handbook`](https://github.com/duskly-jpg/dobby-handbook) — 上述纪律的沉淀课本
 
 ## 许可
 
