@@ -60,6 +60,15 @@ npx wrangler secret put WEBHOOK_SECRET     # hooks-bridge 的签名密钥（whse
 npx wrangler secret put MANUAL_TOKEN       # cron-scheduler 手动触发端点的鉴权 token
 ```
 
+> **npx 兜底**：`npx` 依赖的缓存目录不完整时，`npm exec` 会无声卡死（无报错、无进度）。
+> 部署前先确认缓存里的 wrangler 实体存在；卡死超 2 分钟直接杀进程，改用 node 直跑：
+>
+> ```bash
+> node /path/to/_npx/<hash>/node_modules/wrangler/bin/wrangler.js deploy
+> ```
+>
+> 判活依据：部署日志 2 分钟无新行且进程还在 → 视为卡死，不要干等。
+
 ## 相关仓库
 
 - [`huandou-attest`](https://github.com/duskly-jpg/huandou-attest) — 设备完整性验证（Key Attestation 验签后端）
